@@ -1,8 +1,24 @@
+enum Plant {
+    BH
+    PW
+    SP
+}
+
+enum Progress {
+    NOTIFY
+    IN_PROGRESS
+    COMPLETED
+}
+
 type Todo {
     id: ID!
-    userId: String!
     title: String!
-    progress: String!
+    plant: Plant!
+    description: String!
+    repairedContent: String
+    progress: Progress!
+    image1: String
+    image2: String
     createdAt: DateTime!
     updatedAt: DateTime!
     user: User!
@@ -13,16 +29,41 @@ type Query {
 }
 
 type Mutation {
-    addTodo(title: String!): Todo!
-    updateTodo(todoId: String!, progress: String, title: String): Todo!
+    addTodo(
+        title: String!
+        plant: Plant!
+        description: String!
+        repairedContent: String
+        progress: Progress!
+        image1: String
+        image2: String
+    ): Todo!
+
+    updateTodo(
+        todoId: String!
+        title: String
+        plant: Plant
+        description: String
+        repairedContent: String
+        progress: Progress
+        image1: String
+        image2: String
+        createdAt: DateTime
+        updatedAt: DateTime
+    ): Todo!
+
     deleteTodo(todoId: String!): Todo!
 }
 
-# 実際に返す値
 fragment TodoFragment on Todo {
     id
     title
+    plant
+    description
+    repairedContent
     progress
+    image1
+    image2
     createdAt
     updatedAt
     user {
@@ -36,14 +77,48 @@ query Todos {
     }
 }
 
-mutation AddTodo($title: String!) {
-    addTodo(title: $title) {
+mutation AddTodo(
+    $title: String!
+    $plant: Plant!
+    $description: String!
+    $repairedContent: String
+    $progress: Progress!
+    $image1: String
+    $image2: String
+) {
+    addTodo(
+        title: $title
+        plant: $plant
+        description: $description
+        repairedContent: $repairedContent
+        progress: $progress
+        image1: $image1
+        image2: $image2
+    ) {
         ...TodoFragment
     }
 }
 
-mutation UpdateTodo($todoId: String!, $progress: String, $title: String) {
-    updateTodo(todoId: $todoId, progress: $progress, title: $title) {
+mutation UpdateTodo(
+    $todoId: String!
+    $title: String
+    $plant: Plant
+    $description: String
+    $repairedContent: String
+    $progress: Progress
+    $image1: String
+    $image2: String
+) {
+    updateTodo(
+        todoId: $todoId
+        title: $title
+        plant: $plant
+        description: $description
+        repairedContent: $repairedContent
+        progress: $progress
+        image1: $image1
+        image2: $image2
+    ) {
         ...TodoFragment
     }
 }

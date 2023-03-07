@@ -25,6 +25,12 @@ export type Mutation = {
 
 
 export type MutationAddTodoArgs = {
+  description: Scalars['String'];
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  plant: Plant;
+  progress: Progress;
+  repairedContent?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
 };
 
@@ -35,10 +41,29 @@ export type MutationDeleteTodoArgs = {
 
 
 export type MutationUpdateTodoArgs = {
-  progress?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  description?: InputMaybe<Scalars['String']>;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  plant?: InputMaybe<Plant>;
+  progress?: InputMaybe<Progress>;
+  repairedContent?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   todoId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
+
+export enum Plant {
+  Bh = 'BH',
+  Pw = 'PW',
+  Sp = 'SP'
+}
+
+export enum Progress {
+  Completed = 'COMPLETED',
+  InProgress = 'IN_PROGRESS',
+  Notify = 'NOTIFY'
+}
 
 export type Query = {
   __typename?: 'Query';
@@ -48,12 +73,16 @@ export type Query = {
 export type Todo = {
   __typename?: 'Todo';
   createdAt: Scalars['DateTime'];
+  description: Scalars['String'];
   id: Scalars['ID'];
-  progress: Scalars['String'];
+  image1?: Maybe<Scalars['String']>;
+  image2?: Maybe<Scalars['String']>;
+  plant: Plant;
+  progress: Progress;
+  repairedContent?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user: User;
-  userId: Scalars['String'];
 };
 
 export type User = {
@@ -63,35 +92,46 @@ export type User = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type TodoFragmentFragment = { __typename?: 'Todo', id: string, title: string, progress: string, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } };
+export type TodoFragmentFragment = { __typename?: 'Todo', id: string, title: string, plant: Plant, description: string, repairedContent?: string | null, progress: Progress, image1?: string | null, image2?: string | null, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } };
 
 export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TodosQuery = { __typename?: 'Query', todos: Array<{ __typename?: 'Todo', id: string, title: string, progress: string, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } }> };
+export type TodosQuery = { __typename?: 'Query', todos: Array<{ __typename?: 'Todo', id: string, title: string, plant: Plant, description: string, repairedContent?: string | null, progress: Progress, image1?: string | null, image2?: string | null, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } }> };
 
 export type AddTodoMutationVariables = Exact<{
   title: Scalars['String'];
+  plant: Plant;
+  description: Scalars['String'];
+  repairedContent?: InputMaybe<Scalars['String']>;
+  progress: Progress;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'Todo', id: string, title: string, progress: string, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } } };
+export type AddTodoMutation = { __typename?: 'Mutation', addTodo: { __typename?: 'Todo', id: string, title: string, plant: Plant, description: string, repairedContent?: string | null, progress: Progress, image1?: string | null, image2?: string | null, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } } };
 
 export type UpdateTodoMutationVariables = Exact<{
   todoId: Scalars['String'];
-  progress?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
+  plant?: InputMaybe<Plant>;
+  description?: InputMaybe<Scalars['String']>;
+  repairedContent?: InputMaybe<Scalars['String']>;
+  progress?: InputMaybe<Progress>;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo: { __typename?: 'Todo', id: string, title: string, progress: string, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } } };
+export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo: { __typename?: 'Todo', id: string, title: string, plant: Plant, description: string, repairedContent?: string | null, progress: Progress, image1?: string | null, image2?: string | null, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } } };
 
 export type DeleteTodoMutationVariables = Exact<{
   todoId: Scalars['String'];
 }>;
 
 
-export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo: { __typename?: 'Todo', id: string, title: string, progress: string, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } } };
+export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo: { __typename?: 'Todo', id: string, title: string, plant: Plant, description: string, repairedContent?: string | null, progress: Progress, image1?: string | null, image2?: string | null, createdAt: String, updatedAt: String, user: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } } };
 
 export type UserFragmentFragment = { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null };
 
@@ -106,7 +146,12 @@ export const TodoFragmentFragmentDoc = gql`
     fragment TodoFragment on Todo {
   id
   title
+  plant
+  description
+  repairedContent
   progress
+  image1
+  image2
   createdAt
   updatedAt
   user {
@@ -149,8 +194,16 @@ export type TodosQueryHookResult = ReturnType<typeof useTodosQuery>;
 export type TodosLazyQueryHookResult = ReturnType<typeof useTodosLazyQuery>;
 export type TodosQueryResult = Apollo.QueryResult<TodosQuery, TodosQueryVariables>;
 export const AddTodoDocument = gql`
-    mutation AddTodo($title: String!) {
-  addTodo(title: $title) {
+    mutation AddTodo($title: String!, $plant: Plant!, $description: String!, $repairedContent: String, $progress: Progress!, $image1: String, $image2: String) {
+  addTodo(
+    title: $title
+    plant: $plant
+    description: $description
+    repairedContent: $repairedContent
+    progress: $progress
+    image1: $image1
+    image2: $image2
+  ) {
     ...TodoFragment
   }
 }
@@ -171,6 +224,12 @@ export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodo
  * const [addTodoMutation, { data, loading, error }] = useAddTodoMutation({
  *   variables: {
  *      title: // value for 'title'
+ *      plant: // value for 'plant'
+ *      description: // value for 'description'
+ *      repairedContent: // value for 'repairedContent'
+ *      progress: // value for 'progress'
+ *      image1: // value for 'image1'
+ *      image2: // value for 'image2'
  *   },
  * });
  */
@@ -182,8 +241,17 @@ export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>;
 export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>;
 export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>;
 export const UpdateTodoDocument = gql`
-    mutation UpdateTodo($todoId: String!, $progress: String, $title: String) {
-  updateTodo(todoId: $todoId, progress: $progress, title: $title) {
+    mutation UpdateTodo($todoId: String!, $title: String, $plant: Plant, $description: String, $repairedContent: String, $progress: Progress, $image1: String, $image2: String) {
+  updateTodo(
+    todoId: $todoId
+    title: $title
+    plant: $plant
+    description: $description
+    repairedContent: $repairedContent
+    progress: $progress
+    image1: $image1
+    image2: $image2
+  ) {
     ...TodoFragment
   }
 }
@@ -204,8 +272,13 @@ export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, U
  * const [updateTodoMutation, { data, loading, error }] = useUpdateTodoMutation({
  *   variables: {
  *      todoId: // value for 'todoId'
- *      progress: // value for 'progress'
  *      title: // value for 'title'
+ *      plant: // value for 'plant'
+ *      description: // value for 'description'
+ *      repairedContent: // value for 'repairedContent'
+ *      progress: // value for 'progress'
+ *      image1: // value for 'image1'
+ *      image2: // value for 'image2'
  *   },
  * });
  */

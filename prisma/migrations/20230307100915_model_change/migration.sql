@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Todo" ALTER COLUMN "image1" DROP NOT NULL,
+ALTER COLUMN "image2" DROP NOT NULL,
+ALTER COLUMN "repairedContent" DROP NOT NULL;

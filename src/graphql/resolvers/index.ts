@@ -15,19 +15,49 @@ export const resolvers: Resolvers = {
         },
     },
     Mutation: {
-        addTodo: async (_, { title }, { prisma, currentUser }) => {
+        addTodo: async (
+            _,
+            {
+                title,
+                plant,
+                description,
+                repairedContent,
+                progress,
+                image1,
+                image2,
+            },
+            { prisma, currentUser }
+        ) => {
             if (!currentUser) {
                 throw new Error("User not logged in.")
             }
             const todo = await prisma.todo.create({
-                data: { userId: currentUser.id, title, progress: "通知" },
+                data: {
+                    userId: currentUser.id,
+                    title,
+                    plant,
+                    description,
+                    ...(repairedContent && { repairedContent }),
+                    progress,
+                    ...(image1 && { image1 }),
+                    ...(image2 && { image2 }),
+                },
                 include: { user: true },
             })
             return todo
         },
         updateTodo: async (
             _,
-            { todoId, title, progress },
+            {
+                todoId,
+                title,
+                plant,
+                description,
+                repairedContent,
+                progress,
+                image1,
+                image2,
+            },
             { prisma, currentUser }
         ) => {
             if (!currentUser) {
@@ -37,7 +67,12 @@ export const resolvers: Resolvers = {
                 where: { id: todoId },
                 data: {
                     ...(title && { title }),
+                    ...(plant && { plant }),
+                    ...(description && { description }),
+                    ...(repairedContent && { repairedContent }),
                     ...(progress && { progress }),
+                    ...(image1 && { image1 }),
+                    ...(image2 && { image2 }),
                 },
                 include: { user: true },
             })

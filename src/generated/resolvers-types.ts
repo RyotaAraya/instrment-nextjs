@@ -26,6 +26,12 @@ export type Mutation = {
 
 
 export type MutationAddTodoArgs = {
+  description: Scalars['String'];
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  plant: Plant;
+  progress: Progress;
+  repairedContent?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
 };
 
@@ -36,10 +42,29 @@ export type MutationDeleteTodoArgs = {
 
 
 export type MutationUpdateTodoArgs = {
-  progress?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  description?: InputMaybe<Scalars['String']>;
+  image1?: InputMaybe<Scalars['String']>;
+  image2?: InputMaybe<Scalars['String']>;
+  plant?: InputMaybe<Plant>;
+  progress?: InputMaybe<Progress>;
+  repairedContent?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   todoId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
+
+export enum Plant {
+  Bh = 'BH',
+  Pw = 'PW',
+  Sp = 'SP'
+}
+
+export enum Progress {
+  Completed = 'COMPLETED',
+  InProgress = 'IN_PROGRESS',
+  Notify = 'NOTIFY'
+}
 
 export type Query = {
   __typename?: 'Query';
@@ -49,12 +74,16 @@ export type Query = {
 export type Todo = {
   __typename?: 'Todo';
   createdAt: Scalars['DateTime'];
+  description: Scalars['String'];
   id: Scalars['ID'];
-  progress: Scalars['String'];
+  image1?: Maybe<Scalars['String']>;
+  image2?: Maybe<Scalars['String']>;
+  plant: Plant;
+  progress: Progress;
+  repairedContent?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user: User;
-  userId: Scalars['String'];
 };
 
 export type User = {
@@ -137,6 +166,8 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
+  Plant: Plant;
+  Progress: Progress;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Todo: ResolverTypeWrapper<TodoModel>;
@@ -160,7 +191,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'title'>>;
+  addTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'description' | 'plant' | 'progress' | 'title'>>;
   deleteTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'todoId'>>;
   updateTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationUpdateTodoArgs, 'todoId'>>;
 };
@@ -171,12 +202,16 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
 
 export type TodoResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  progress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  image1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  image2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  plant?: Resolver<ResolversTypes['Plant'], ParentType, ContextType>;
+  progress?: Resolver<ResolversTypes['Progress'], ParentType, ContextType>;
+  repairedContent?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

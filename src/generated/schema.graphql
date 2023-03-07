@@ -1,9 +1,21 @@
 scalar DateTime
 
 type Mutation {
-  addTodo(title: String!): Todo!
+  addTodo(description: String!, image1: String, image2: String, plant: Plant!, progress: Progress!, repairedContent: String, title: String!): Todo!
   deleteTodo(todoId: String!): Todo!
-  updateTodo(progress: String, title: String, todoId: String!): Todo!
+  updateTodo(createdAt: DateTime, description: String, image1: String, image2: String, plant: Plant, progress: Progress, repairedContent: String, title: String, todoId: String!, updatedAt: DateTime): Todo!
+}
+
+enum Plant {
+  BH
+  PW
+  SP
+}
+
+enum Progress {
+  COMPLETED
+  IN_PROGRESS
+  NOTIFY
 }
 
 type Query {
@@ -12,12 +24,16 @@ type Query {
 
 type Todo {
   createdAt: DateTime!
+  description: String!
   id: ID!
-  progress: String!
+  image1: String
+  image2: String
+  plant: Plant!
+  progress: Progress!
+  repairedContent: String
   title: String!
   updatedAt: DateTime!
   user: User!
-  userId: String!
 }
 
 type User {

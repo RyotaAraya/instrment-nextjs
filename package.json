@@ -12,7 +12,8 @@
         "format": "run-s format:prettier format:eslint",
         "format:eslint": "yarn lint:eslint --fix",
         "format:prettier": "yarn lint:prettier --write",
-        "codegen": "graphql-codegen"
+        "codegen": "graphql-codegen",
+        "db:reset": "npx prisma db push --preview-feature  --accept-data-loss --schema=./prisma/reset.prisma"
     },
     "dependencies": {
         "@apollo/client": "3.7.4",
