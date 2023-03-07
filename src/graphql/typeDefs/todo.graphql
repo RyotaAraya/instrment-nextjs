@@ -48,7 +48,7 @@ mutation UpdateTodo($todoId: String!, $progress: String, $title: String) {
     }
 }
 
-mutation DeleteTodo($todoId: String) {
+mutation DeleteTodo($todoId: String!) {
     deleteTodo(todoId: $todoId) {
         ...TodoFragment
     }
