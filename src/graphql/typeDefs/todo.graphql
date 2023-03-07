@@ -1,0 +1,55 @@
+type Todo {
+    id: ID!
+    userId: String!
+    title: String!
+    progress: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    user: User!
+}
+
+type Query {
+    todos: [Todo!]!
+}
+
+type Mutation {
+    addTodo(title: String!): Todo!
+    updateTodo(todoId: String!, progress: String, title: String): Todo!
+    deleteTodo(todoId: String!): Todo!
+}
+
+# 実際に返す値
+fragment TodoFragment on Todo {
+    id
+    title
+    progress
+    createdAt
+    updatedAt
+    user {
+        ...UserFragment
+    }
+}
+
+query Todos {
+    todos {
+        ...TodoFragment
+    }
+}
+
+mutation AddTodo($title: String!) {
+    addTodo(title: $title) {
+        ...TodoFragment
+    }
+}
+
+mutation UpdateTodo($todoId: String!, $progress: String, $title: String) {
+    updateTodo(todoId: $todoId, progress: $progress, title: $title) {
+        ...TodoFragment
+    }
+}
+
+mutation DeleteTodo($todoId: String) {
+    deleteTodo(todoId: $todoId) {
+        ...TodoFragment
+    }
+}

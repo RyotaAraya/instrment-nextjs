@@ -56,11 +56,20 @@ model VerificationToken {
 }
 
 model Todo {
+  id         String   @id @default(cuid())
+  userId     String
+  title      String
+  progress   Progress @relation(fields: [progressId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id])
+  progressId String
+}
+
+model Progress {
   id        String   @id @default(cuid())
-  userId    String
-  title     String
-  progress  String
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
+  Todo      Todo[]
 }
