@@ -37,18 +37,6 @@ const TodoList: FC = () => {
     if (error) return <h1>error!</h1>
     if (!data?.todos) return null
 
-    // const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    //     e.preventDefault()
-    //     const { data } = await addTodoMutation({
-    //         variables: { title: todoTitle },
-    //     })
-    //     const addedTodo = data?.addTodo
-    //     if (!addedTodo) return
-    //     setTodos([addedTodo, ...todos])
-    //     setTodoTitle("")
-    //     await refetch()
-    // }
-
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault()
         const { data } = await addTodoMutation({
@@ -68,20 +56,6 @@ const TodoList: FC = () => {
         setNewTodo(INIT_TODO)
         await refetch()
     }
-
-    // const handleChange = async (todoId: string, progress: string) => {
-    //     const { data } = await updateTodoMutation({
-    //         variables: { todoId, progress },
-    //     })
-
-    //     const updatedTodo = data?.updateTodo
-    //     if (!updatedTodo) return
-
-    //     const updatedTodos = todos.map((currentTodo) =>
-    //         currentTodo?.id === updatedTodo.id ? updatedTodo : currentTodo
-    //     )
-    //     setTodos(updatedTodos)
-    // }
 
     const handleDelete = async (todoId: string) => {
         const isOk = confirm("削除しますか？")
@@ -108,44 +82,79 @@ const TodoList: FC = () => {
     console.log("newTodo", newTodo)
 
     return (
-        <div className="p-5 border rounded">
+        <div className="w-full">
             <h1>Todo List</h1>
-            <form onSubmit={handleSubmit} className="flex gap-2">
-                <label htmlFor="title">Title</label>
-                <input
-                    className="p-2 border"
-                    type="text"
-                    name="title"
-                    value={newTodo.title}
-                    onChange={handleChange}
-                />
-
-                <label htmlFor="plant">Plant</label>
-                <input
-                    className="p-2 border"
-                    type="text"
-                    name="plant"
-                    value={newTodo.plant}
-                    onChange={handleChange}
-                />
-
-                <label htmlFor="description">Description</label>
-                <input
-                    className="p-2 border"
-                    type="text"
-                    name="description"
-                    value={newTodo.description}
-                    onChange={handleChange}
-                />
-
-                <label htmlFor="repairedContent">Repaired Content</label>
-                <input
-                    className="p-2 border"
-                    type="text"
-                    name="repairedContent"
-                    value={newTodo.repairedContent}
-                    onChange={handleChange}
-                />
+            <form onSubmit={handleSubmit} className="w-full max-w-lg">
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="plant"
+                        >
+                            Plant
+                        </label>
+                        <input
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            type="text"
+                            name="plant"
+                            value={newTodo.plant}
+                            onChange={handleChange}
+                        />
+                        <p className="text-gray-600 text-xs italic">tips</p>
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                        <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="title"
+                        >
+                            Title
+                        </label>
+                        <input
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            type="text"
+                            name="title"
+                            value={newTodo.title}
+                            onChange={handleChange}
+                        />
+                        <p className="text-gray-600 text-xs italic">tips</p>
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                        <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="description"
+                        >
+                            Description
+                        </label>
+                        <textarea
+                            className="no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
+                            name="description"
+                            value={newTodo.description}
+                            onChange={handleChange}
+                        />
+                        <p className="text-gray-600 text-xs italic">tips</p>
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                        <label
+                            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            htmlFor="repairedContent"
+                        >
+                            Repaired Content
+                        </label>
+                        <textarea
+                            className="no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
+                            name="repairedContent"
+                            value={newTodo.repairedContent}
+                            onChange={handleChange}
+                        />
+                        <p className="text-gray-600 text-xs italic">tips</p>
+                    </div>
+                </div>
 
                 <label htmlFor="image1">Image 1</label>
                 <input
